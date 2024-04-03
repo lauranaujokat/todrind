@@ -1,13 +1,16 @@
+let
+  unstable = import (fetchTarball https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz) { };
+in
 with import <nixpkgs> {};
   pkgs.mkShell {
     buildInputs = [
-      pkgs.cargo
-      pkgs.rustc
-      pkgs.rustfmt
-      pkgs.clippy
+      unstable.cargo
+      unstable.rustc
+      unstable.rustfmt
+      unstable.clippy
       pkgs.openssl
       pkgs.pkg-config
     ];
-    RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+    RUST_SRC_PATH = "${unstable.rust.packages.stable.rustPlatform.rustLibSrc}";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev.outPath}/lib/pkgconfig:" + "$PKG_CONFIG_PATH";
   }
