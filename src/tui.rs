@@ -2,9 +2,13 @@ use crossterm::{
     event::{self, Event, KeyCode},
     terminal, ExecutableCommand,
 };
-use ratatui::{prelude::*, widgets::*};
+use ratatui::{
+    prelude::*,
+    widgets::{calendar::CalendarEventStore, *},
+    style::Stylize,
+};
 use std::io::{self, stdout};
-
+use time::Date;
 
 // The update loop returns this struct
 // It contains data on what to do
@@ -13,9 +17,7 @@ struct Command {
 }
 impl Default for Command {
     fn default() -> Self {
-        Command {
-            quit: false
-        }
+        Command { quit: false }
     }
 }
 
@@ -49,8 +51,11 @@ fn handle_events() -> io::Result<Command> {
 }
 
 fn ui(frame: &mut Frame) {
-    frame.render_widget(
-        Paragraph::new("owo").block(Block::default().title("TODRIND").borders(Borders::ALL)),
-        frame.size(),
-    );
+    let calendar_date = Date::from_calendar_date(2024, time::Month::April, 1).unwrap();
+    let events = CalendarEventStore::default();
+
+    let calendar = calendar::Monthly::new(calendar_date, events)
+        .show_month_header(Style::new().bold());
+
+    frame.render_widget(calendar, frame.size());
 }
