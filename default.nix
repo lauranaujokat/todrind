@@ -1,5 +1,5 @@
 let
-  unstable = import (fetchTarball "https://nixos.org/channels/nixos-23.11/nixexprs.tar.xz") { };
+  unstable = import (fetchTarball "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz") { };
 in
 with import <nixpkgs> {};
   pkgs.mkShell {
@@ -13,4 +13,6 @@ with import <nixpkgs> {};
     ];
     RUST_SRC_PATH = "${unstable.rust.packages.stable.rustPlatform.rustLibSrc}";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev.outPath}/lib/pkgconfig:" + "$PKG_CONFIG_PATH";
+
+    DATABASE_URL = "sqlite://sqlite.db";
   }
