@@ -1,5 +1,7 @@
 use sqlx::{migrate::MigrateDatabase, Sqlite};
 
+mod tui;
+
 const DB_URL: &str = "sqlite://sqlite.db";
 
 #[tokio::main]
@@ -13,4 +15,6 @@ async fn main() {
     } else {
         println!("Database already exists");
     }
+
+    tui::termui().unwrap();
 }
