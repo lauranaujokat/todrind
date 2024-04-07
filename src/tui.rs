@@ -28,7 +28,7 @@ pub fn termui() -> io::Result<()> {
         quit = cmd.quit;
     }
 
-    terminal.clear();
+    terminal.clear()?;
     stdout().execute(terminal::LeaveAlternateScreen)?;
     terminal::disable_raw_mode()?;
     Ok(())
@@ -49,5 +49,4 @@ fn handle_events() -> io::Result<Command> {
 }
 
 fn ui(frame: &mut Frame) {
-
 }
