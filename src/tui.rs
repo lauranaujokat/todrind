@@ -2,11 +2,7 @@ use crossterm::{
     event::{self, Event, KeyCode},
     terminal, ExecutableCommand,
 };
-use ratatui::{
-    prelude::*,
-    widgets::{calendar::CalendarEventStore, *},
-    style::Stylize,
-};
+use ratatui::{prelude::*, widgets::*};
 use std::io::{self, stdout};
 use time::Date;
 
@@ -51,11 +47,5 @@ fn handle_events() -> io::Result<Command> {
 }
 
 fn ui(frame: &mut Frame) {
-    let calendar_date = Date::from_calendar_date(2024, time::Month::April, 1).unwrap();
-    let events = CalendarEventStore::default();
 
-    let calendar = calendar::Monthly::new(calendar_date, events)
-        .show_month_header(Style::new().bold());
-
-    frame.render_widget(calendar, frame.size());
 }
