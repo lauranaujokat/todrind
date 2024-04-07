@@ -1,6 +1,7 @@
 use sqlx::{migrate::MigrateDatabase, Sqlite};
 
 mod tui;
+mod dbrind;
 
 const DB_URL: &str = "sqlite://sqlite.db";
 
