@@ -4,7 +4,6 @@ use crossterm::{
 };
 use ratatui::{prelude::*, widgets::*};
 use std::io::{self, stdout};
-use time::Date;
 
 // The update loop returns this struct
 // It contains data on what to do
@@ -29,6 +28,9 @@ pub fn termui() -> io::Result<()> {
         quit = cmd.quit;
     }
 
+    terminal.clear();
+    stdout().execute(terminal::LeaveAlternateScreen)?;
+    terminal::disable_raw_mode()?;
     Ok(())
 }
 
